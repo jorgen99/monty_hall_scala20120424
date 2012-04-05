@@ -1,0 +1,20 @@
+@(game: Game)
+
+@main("Play Monty Hall!") {
+
+<div class="main-content start">
+
+    <div class="doors">
+        <h3><strong>@game.playerName</strong>, please choose a door.</h3>
+
+    <ul class="door-list">
+        @for(i <- 1 to 3) {
+        <li>
+          <img id="door@i" class="door" src="@routes.Assets.at("images/door.jpg")"/>
+        </li>
+        }
+    </ul>
+
+    </div>
+</div>
+}
