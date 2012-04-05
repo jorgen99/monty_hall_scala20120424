@@ -1,0 +1,435 @@
+/*
+    This file was generated using sass with compass in another
+    project. I should clean it up to only include stuff I use
+    in this little Monty-app but I don't "orka".
+    http://www.thelocal.se/gallery/2332/
+
+    After all this little app is about learning Play! and
+    not css, right... :)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+.wrapper {
+  width: 950px;
+  margin: 0 auto;
+  overflow: hidden;
+  *zoom: 1;
+}
+
+header, .main-content, section, footer {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 792px;
+}
+* html header, * html .main-content, * html section, * html footer {
+  overflow-x: hidden;
+}
+
+.wrapper {
+  width: 792px;
+  padding: 5px 10px 0;
+  overflow: visible;
+}
+
+html {
+  height: 100%;
+  background: #ebebeb;
+}
+
+body {
+  font-family: "AllerRegular", "helvetica nue", "helvetica", "arial, sans-serif";
+  color: #545454;
+  font-size: 12px;
+  line-height: 24px;
+  height: 100%;
+}
+
+h1 {
+  font-family: "SnigletRegular";
+  font-size: 50px;
+  line-height: 50px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+p + h2, p + h3, p + h4, p + h5, p + h6 {
+  margin-top: 24px;
+}
+
+a {
+  color: #545454;
+  -moz-transition-property: all;
+  -webkit-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -moz-transition-duration: 0.05s;
+  -webkit-transition-duration: 0.05s;
+  -o-transition-duration: 0.05s;
+  transition-duration: 0.05s;
+  -moz-transition-timing-function: ease-in-out;
+  -webkit-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+
+::-moz-selection, selection {
+  background: black;
+  color: white;
+}
+
+.logo a, .menu a, strong {
+  font-family: "AllerBold", "helvetica nue", "helvetica", "arial, sans-serif";
+}
+
+header {
+  height: 65px;
+  margin-top: 10px;
+  position: relative;
+}
+header .logo {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 792px;
+}
+* html header .logo {
+  overflow-x: hidden;
+}
+header .logo a {
+  font-size: 20px;
+  line-height: 34px;
+  color: black;
+  text-decoration: none;
+}
+header .logo a:hover {
+  color: #1d7bbe;
+}
+
+.main-content {
+  background: white;
+  min-height: 300px;
+  padding: 36px 0;
+  position: relative;
+}
+.main-content:before {
+  content: "";
+  background: white;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -o-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -khtml-border-radius: 15px;
+  border-radius: 15px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.12) 0 0px 5px 0px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.12) 0 0px 5px 0px;
+  -o-box-shadow: rgba(0, 0, 0, 0.12) 0 0px 5px 0px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 0px 5px 0px;
+  display: block;
+  position: absolute;
+  left: -40px;
+  right: -40px;
+  top: 0px;
+  bottom: 0px;
+  z-index: -1;
+}
+
+.start .intro h2 {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 792px;
+  font-size: 28px;
+  line-height: 48px;
+  margin-bottom: 12px;
+}
+* html .start .intro h2 {
+  overflow-x: hidden;
+}
+.start .intro p {
+  display: inline;
+  float: left;
+  margin-right: 12px;
+  width: 524px;
+}
+* html .start .intro p {
+  overflow-x: hidden;
+}
+.start .register-here {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 792px;
+  margin-top: 18px;
+}
+* html .start .register-here {
+  overflow-x: hidden;
+}
+
+.new-game {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 792px;
+  text-align: center;
+  margin: 36px 0 36px 0;
+}
+* html .new-game {
+  overflow-x: hidden;
+}
+
+.doors h3 {
+  font-size: 18px;
+  margin-bottom: 50px;
+}
+.doors li {
+  display: inline;
+}
+.doors img {
+  width: 260px;
+}
+
+.form {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form.background li {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -khtml-border-radius: 2px;
+  border-radius: 2px;
+  background: #ebebeb;
+}
+.form li {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 12px;
+  margin-bottom: 12px;
+  display: block;
+  float: left;
+  width: 100%;
+}
+.form li:last-child {
+  margin: 10px 0 0 0;
+}
+.form li label {
+  display: block;
+  float: left;
+  width: 90px;
+}
+.form li input {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 13px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f3f3f3), color-stop(100%, #ffffff));
+  background-image: -webkit-linear-gradient(#f3f3f3, #ffffff);
+  background-image: -moz-linear-gradient(#f3f3f3, #ffffff);
+  background-image: -o-linear-gradient(#f3f3f3, #ffffff);
+  background-image: -ms-linear-gradient(#f3f3f3, #ffffff);
+  background-image: linear-gradient(#f3f3f3, #ffffff);
+  border: 1px solid #cfcfcf;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  padding: 4px 6px;
+  float: left;
+  display: inline-block;
+}
+.form li span {
+  float: left;
+}
+.form li strong {
+  color: black;
+}
+
+.button {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -khtml-border-radius: 4px;
+  border-radius: 4px;
+  text-decoration: none;
+  position: relative;
+  padding: 3px 10px 1px;
+  display: inline-block;
+  -moz-box-shadow: rgba(0, 0, 0, 0.14) 0px 1px 3px 0px, inset rgba(255, 255, 255, 0.4) 0px 1px 1px 0px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.14) 0px 1px 3px 0px, inset rgba(255, 255, 255, 0.4) 0px 1px 1px 0px;
+  -o-box-shadow: rgba(0, 0, 0, 0.14) 0px 1px 3px 0px, inset rgba(255, 255, 255, 0.4) 0px 1px 1px 0px;
+  box-shadow: rgba(0, 0, 0, 0.14) 0px 1px 3px 0px, inset rgba(255, 255, 255, 0.4) 0px 1px 1px 0px;
+  cursor: pointer;
+}
+.button:hover {
+  -moz-box-shadow: rgba(0, 0, 0, 0.22) 0px 1px 5px 0px, inset rgba(255, 255, 255, 0.6) 0px 1px 1px 0px, inset rgba(255, 255, 255, 0.2) 0px 0px 12px 2px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.22) 0px 1px 5px 0px, inset rgba(255, 255, 255, 0.6) 0px 1px 1px 0px, inset rgba(255, 255, 255, 0.2) 0px 0px 12px 2px;
+  -o-box-shadow: rgba(0, 0, 0, 0.22) 0px 1px 5px 0px, inset rgba(255, 255, 255, 0.6) 0px 1px 1px 0px, inset rgba(255, 255, 255, 0.2) 0px 0px 12px 2px;
+  box-shadow: rgba(0, 0, 0, 0.22) 0px 1px 5px 0px, inset rgba(255, 255, 255, 0.6) 0px 1px 1px 0px, inset rgba(255, 255, 255, 0.2) 0px 0px 12px 2px;
+}
+.button.gray {
+  color: #545454;
+  border: 1px solid #cccccc;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f6f6f6), color-stop(100%, #dbdbdb));
+  background-image: -webkit-linear-gradient(#f6f6f6, #dbdbdb);
+  background-image: -moz-linear-gradient(#f6f6f6, #dbdbdb);
+  background-image: -o-linear-gradient(#f6f6f6, #dbdbdb);
+  background-image: -ms-linear-gradient(#f6f6f6, #dbdbdb);
+  background-image: linear-gradient(#f6f6f6, #dbdbdb);
+  -moz-box-shadow: 0 0;
+  -webkit-box-shadow: 0 0;
+  -o-box-shadow: 0 0;
+  box-shadow: 0 0;
+}
+.button.gray.new {
+  font-family: "SnigletRegular";
+  font-size: 50px;
+  padding: 37px 37px;
+  margin-top: 60px;
+}
+
+
+.register {
+  width: 400px;
+  position: absolute;
+  top: 118px;
+  left: 250px;
+}
+.register h2 {
+  margin-bottom: 24px;
+  border-bottom: 1px solid #cfcfcf;
+  padding-bottom: 4px;
+}
+.register h3 {
+  font-size: 24px;
+  margin-bottom: 14px;
+}
+.register .form li {
+  background: none;
+  padding: 0;
+  margin-bottom: 18px;
+}
+.register .form li input {
+  padding: 12px 6px;
+  width: 260px;
+  margin-right: 20px;
+}
+.register .form li a {
+  font-size: 13px;
+  color: #868686;
+}
+.register .form li p {
+  margin-top: 13px;
+  color: #868686;
+  font-style: italic;
+  line-height: 18px;
+}
+.register .form li .button {
+  font-size: 16px;
+  font-weight: bold;
+  width: auto;
+  padding: 8px 12px;
+}
+.register .form li .error {
+  color: red;
+  font-size: 13px;
+}
+
+footer {
+  margin: 12px 0 24px;
+  font-size: 11px;
+  color: #868686;
+}
+footer a {
+  color: #868686;
+}
+footer li {
+  float: left;
+  margin-left: 12px;
+}
+footer li:before {
+  content: "•";
+  font-weight: bold;
+}
+footer li:first-child {
+  margin: 0px;
+}
+footer li:first-child:before {
+  display: none;
+}
+footer li a {
+  margin-left: 12px;
+}
+footer li a:hover {
+  color: black;
+}
