@@ -1,6 +1,37 @@
 @(game: Game)
 
-@main("Play Monty Hall!") {
+@import helper._
+@import controllers.routes.javascript._
+
+@main("Choose Door") {
+
+@javascriptRouter("jsRoutes")(
+Application.selectDoor
+)
+
+<script type="text/javascript">
+
+    var goatUrl = '@routes.Assets.at("images/goat.png")';
+
+    $(function(){
+        $('.door-list img').click(function() {
+            var gameId = @game.id;
+            var doorNo = $(this).attr('id').substr(4);
+            jsRoutes.controllers.Application.selectDoor(gameId, doorNo).ajax({
+                success:function (data) {
+                    var message =
+                            "Door number " + data.goatDoor +
+                                    " is a goat. Stay or switch?";
+                    $('.doors h3').text(message);
+                    $('#door' + data.goatDoor).attr('src', goatUrl);
+                },
+                error:function () {
+                    alert("Error!")
+                }
+            });
+        });
+    });
+</script>
 
 <div class="main-content start">
 

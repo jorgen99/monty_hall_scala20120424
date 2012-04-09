@@ -8,7 +8,11 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
-case class Game(id: Pk[Long] = NotAssigned, playerName: String)
+case class Game(id: Pk[Long] = NotAssigned, 
+                playerName: String, 
+                var selectedDoor: Option[Int] = None) {
+    def goatDoor = 3
+}
 
 object Game {
 
@@ -17,8 +21,9 @@ object Game {
    */
   val simple = {
     get[Pk[Long]]("game.id") ~
-    get[String]("game.playerName") map {
-      case id~playerName => Game(id, playerName)
+    get[String]("game.playerName") ~
+    get[Option[Int]]("game.selectedDoor") map {
+      case id~playerName~selectedDoor => Game(id, playerName, selectedDoor)
     }
   }
 
@@ -38,7 +43,7 @@ object Game {
     DB.withConnection { implicit connection =>
       SQL(
         """
-          insert into game values (
+          insert into game (id, playerName) values (
             (select next value for game_seq),
             {playerName}
           )
@@ -47,6 +52,23 @@ object Game {
         'playerName -> game.playerName
       ).executeInsert()
     }
+  }
+
+  def update(id: Long, game: Game) = {
+    DB.withConnection { implicit connection =>
+      SQL(
+        """
+          update game
+          set playerName = {playerName}, selectedDoor = {selectedDoor}
+          where id = {id}
+        """
+      ).on(
+        'id -> id,
+        'playerName -> game.playerName,
+        'selectedDoor -> game.selectedDoor
+      ).executeUpdate()
+    }
+
   }
 
 }

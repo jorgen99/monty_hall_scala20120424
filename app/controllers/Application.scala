@@ -4,6 +4,8 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.format.Formats._
+import play.api.libs.json.Json._
 
 import anorm._
 
@@ -15,8 +17,10 @@ object Application extends Controller {
   val gameForm = Form(
     mapping(
       "id" -> ignored(NotAssigned:Pk[Long]),
-      "playerName" -> text
-    )(Game.apply)(Game.unapply)
+      "playerName" -> text,
+      "selectedDoor" -> optional(of[Int])
+    )
+    (Game.apply)(Game.unapply)
   )
 
   def index = Action {
@@ -40,5 +44,13 @@ object Application extends Controller {
       Ok(html.game(game))
     }.getOrElse(NotFound)
   }
-  
+
+  def selectDoor(id: Long, doorNo: Int) = Action {
+    Game.findById(id).map { game =>
+      game.selectedDoor = Some(doorNo)
+      Game.update(id, game)
+      Ok(toJson(Map("goatDoor" -> game.goatDoor)))
+    }.getOrElse(NotFound)
+  }
+
 }

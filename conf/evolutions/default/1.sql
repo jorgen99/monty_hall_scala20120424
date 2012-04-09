@@ -7,6 +7,7 @@ set ignorecase true;
 create table game (
   id                        bigint not null,
   playerName                varchar(255) not null,
+  selectedDoor              int,
   constraint pk_game primary key (id))
 ;
 
