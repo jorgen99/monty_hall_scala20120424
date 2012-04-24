@@ -71,4 +71,18 @@ object Application extends Controller {
     }.getOrElse(NotFound)
   }
 
+  def statistics(noOfGames: Int) = Action {
+    val games = for (i <- 1 to noOfGames) yield {
+      val game = Game(playerName = "Kayser Söze")
+      game.initialPlayerDoor = 1
+      val goatDoor = game.goatDoor
+      if (goatDoor == 2)
+        game.stayOrSwitch(3)
+      else
+        game.stayOrSwitch(2)
+      game
+    }
+    Ok(html.statistics.render(noOfGames, games.filter(_.won).length));
+  }
+
 }

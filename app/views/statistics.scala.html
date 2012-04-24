@@ -1,0 +1,15 @@
+@(gamesRun: Int, gamesWon: Int)
+
+@import helper._
+
+@main(gamesRun + " Games run") {
+
+<div class="main-content start">
+
+    <div class="doors">
+        <h3>Running @gamesRun games, we won @gamesWon, by switching door all the time.
+            This is @{ "%1.2f" format gamesWon.toDouble / gamesRun.toDouble * 100 }%.
+        </h3>
+    </div>
+</div>
+}
