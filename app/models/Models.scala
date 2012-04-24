@@ -13,17 +13,16 @@ import models.Game._
 case class Game(id: Pk[Long] = NotAssigned,
                 playerName: String,
                 var initialPlayerDoor: Int = -1,
-                carDoor: Int = randomDoor,
+                var carDoor: Int = randomDoor,
                 var switched: Boolean = false,
                 var won: Boolean = false,
                 var gameOver: Boolean = false) {
 
-  def goatDoor(): Int = {
-    val candidateDoor = randomDoor
-    if (isCarDoorOrPlayerDoor(candidateDoor)) {
-      return goatDoor()
-    }
-    candidateDoor
+  def goatDoor() = {
+    val filtered = Vector(1, 2, 3)
+      .filter(_ != carDoor)
+      .filter(_ != initialPlayerDoor)
+    filtered(new Random().nextInt(filtered.length))
   }
 
   def isCarDoorOrPlayerDoor(possibleGoat: Int) = {
