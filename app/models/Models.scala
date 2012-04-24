@@ -14,7 +14,7 @@ import scala.Some
 case class Game(id: Pk[Long] = NotAssigned,
                 playerName: String,
                 var initialPlayerDoor: Int = -1,
-                var carDoor: Int = randomDoor,
+                carDoor: Int = randomDoor,
                 var switched: Boolean = false,
                 var won: Boolean = false,
                 var gameOver: Boolean = false) {
