@@ -3,10 +3,12 @@
 # ~~~~
 
 # Home page
-GET     /                               controllers.Application.index()
-POST    /games                          controllers.Application.newGame()
-GET     /games/:id                      controllers.Application.game(id: Long)
-POST    /games/:id/selectDoor/:doorNo   controllers.Application.selectDoor(id: Long, doorNo: Int)
+GET     /                                     controllers.Application.index()
+POST    /games                                controllers.Application.newGame()
+GET     /games/new/:playerName                controllers.Application.newGameFor(playerName: String)
+GET     /games/:id                            controllers.Application.game(id: Long)
+POST    /games/:id/selectDoor/:doorNo         controllers.Application.selectDoor(id: Long, doorNo: Int)
+POST    /games/:id/stayOrSwitch/:doorNo       controllers.Application.stayOrSwitch(id: Long, doorNo: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

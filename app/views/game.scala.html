@@ -6,31 +6,99 @@
 @main("Choose Door") {
 
 @javascriptRouter("jsRoutes")(
-Application.selectDoor
+  Application.selectDoor,
+  Application.stayOrSwitch
 )
 
 <script type="text/javascript">
 
     var goatUrl = '@routes.Assets.at("images/goat.png")';
+    var carUrl =  '@routes.Assets.at("images/car.png")';
+    var gameId = @game.id;
 
     $(function(){
         $('.door-list img').click(function() {
-            var gameId = @game.id;
             var doorNo = $(this).attr('id').substr(4);
-            jsRoutes.controllers.Application.selectDoor(gameId, doorNo).ajax({
-                success:function (data) {
-                    var message =
-                            "Door number " + data.goatDoor +
-                                    " is a goat. Stay or switch?";
-                    $('.doors h3').text(message);
-                    $('#door' + data.goatDoor).attr('src', goatUrl);
-                },
-                error:function () {
-                    alert("Error!")
-                }
-            });
+            if(noDoorSelected()) {
+                selectDoor(doorNo);
+            } else {
+                stayOrSwitch(doorNo);
+            }
         });
     });
+
+    function selectDoor(doorNo) {
+        jsRoutes.controllers.Application.selectDoor(gameId, doorNo).ajax({
+            success:function (reply) {
+                var goatDoor = reply.goatDoor;
+                stayOrSwitchMessage(goatDoor);
+                var goatImg = $('#door' + goatDoor);
+                swapDoorForGoat(goatImg);
+                replaceClickEventOnGoat(goatImg);
+            },
+            error:function () {
+                alert("Error!")
+            }
+        });
+
+    }
+
+    function stayOrSwitch(doorNo) {
+        jsRoutes.controllers.Application.stayOrSwitch(gameId, doorNo).ajax({
+            success:function (reply) {
+                var carDoor = reply.carDoor;
+                var message;
+                if (carDoor == doorNo) {
+                    $('#door' + doorNo).attr('src', carUrl);
+                    message = "You won the car! ";
+                } else {
+                    $('#door' + doorNo).attr('src', goatUrl);
+                    message = "No car this time... ";
+                }
+                display(message + '<a href="@routes.Application.newGameFor(game.playerName)">Play again?</a>');
+            },
+            error:function () {
+                alert("Error!")
+            }
+        });
+    }
+
+    function openAllDoors(carDoor) {
+        $.each($('.door-list img'), function(index, doorImg) {
+            if((index + 1) == carDoor) {
+                $(doorImg).attr('src', carUrl);
+            } else {
+                $(doorImg).attr('src', goatUrl);
+            }
+        });
+    }
+    function display(message) {
+        $('.doors h3').html(message);
+    }
+
+    function stayOrSwitchMessage(goatDoor) {
+        var message =
+                "Door number " + goatDoor +
+                        " is a goat. Stay or switch?";
+        display(message);
+    }
+
+    function swapDoorForGoat(goatImg) {
+        goatImg.attr('src', goatUrl);
+        return goatImg;
+    }
+
+    function replaceClickEventOnGoat(goatImg) {
+        goatImg.off('click');
+        goatImg.click(function() {
+            display("Leave the goat alone! Stay or switch?");
+        });
+    }
+
+    function noDoorSelected() {
+        return $('.doors h3').text().indexOf('switch') == -1;
+    }
+
 </script>
 
 <div class="main-content start">
@@ -38,13 +106,13 @@ Application.selectDoor
     <div class="doors">
         <h3><strong>@game.playerName</strong>, please choose a door.</h3>
 
-    <ul class="door-list">
-        @for(i <- 1 to 3) {
-        <li>
-          <img id="door@i" class="door" src="@routes.Assets.at("images/door.jpg")"/>
-        </li>
-        }
-    </ul>
+        <ul class="door-list">
+            @for(i <- 1 to 3) {
+            <li>
+                <img id="door@i" class="door" src="@routes.Assets.at("images/door.jpg")"/>
+            </li>
+            }
+        </ul>
 
     </div>
 </div>
