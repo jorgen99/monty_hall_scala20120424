@@ -14,17 +14,16 @@ import models._
 
 object Application extends Controller {
 
-  val gameForm = Form(
+  val gameForm: Form[Game] = Form(
     mapping(
       "id" -> ignored(NotAssigned:Pk[Long]),
-      "playerName" -> text,
-      "initialPlayerDoor" -> optional(of[Int]),
-      "carDoor" -> optional(of[Int]),
-      "switched" -> optional(of[Boolean]),
-      "won" -> optional(of[Boolean]),
-      "gameOver" -> optional(of[Boolean])
-    )
-    (Game.apply)(Game.unapply)
+      "playerName" -> text
+    ) {
+     (id, playerName) => Game(playerName = playerName)
+    } {
+      game => Some(game.id, game.playerName)
+    }
+
   )
 
   def index = Action {
@@ -35,7 +34,6 @@ object Application extends Controller {
     gameForm.bindFromRequest.fold(
       formWithErrors => BadRequest(html.index(formWithErrors)),
       game => {
-        game.randomizeCarDoor
         Game.insert(game) match {
             case Some(id) => Redirect(routes.Application.game(id))
             case None => Redirect(routes.Application.index)
@@ -45,7 +43,7 @@ object Application extends Controller {
   }
 
   def newGameFor(playerName: String) = Action {
-    val game = Game(playerName = playerName, carDoor = Some(Game.randomDoor))
+    val game = Game(playerName = playerName)
     Game.insert(game) match {
       case Some(id) => Redirect(routes.Application.game(id))
       case None => Redirect(routes.Application.index)
