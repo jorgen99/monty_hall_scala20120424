@@ -13,15 +13,11 @@ import scala.Some
 
 case class Game(id: Pk[Long] = NotAssigned,
                 playerName: String,
-                var initialPlayerDoor: Option[Int] = None,
-                var carDoor: Option[Int] = Some(randomDoor),
-                var switched: Option[Boolean] = None,
-                var won: Option[Boolean] = None,
-                var gameOver: Option[Boolean] = None) {
-
-  def randomizeCarDoor {
-    carDoor = Some(Game.randomDoor)
-  }
+                var initialPlayerDoor: Int = -1,
+                var carDoor: Int = randomDoor,
+                var switched: Boolean = false,
+                var won: Boolean = false,
+                var gameOver: Boolean = false) {
 
     def goatDoor(): Int = {
       val candidateDoor = randomDoor
@@ -31,23 +27,19 @@ case class Game(id: Pk[Long] = NotAssigned,
       candidateDoor
     }
 
-
-  def isCarDoorOrPlayerDoor(possibleGoat: Int): Boolean = {
-    possibleGoat == carDoor.getOrElse(-1) || possibleGoat == initialPlayerDoor.getOrElse(-1)
+  def isCarDoorOrPlayerDoor(possibleGoat: Int) = {
+    possibleGoat == carDoor || possibleGoat == initialPlayerDoor
   }
 
   def stayOrSwitch(doorNo: Int) {
-       if(doorNo != initialPlayerDoor.getOrElse(-1)) {
-         play.Logger.info("switched = true ")
-         switched = Some(true)
+       if(doorNo != initialPlayerDoor) {
+         switched = true
        }
-       if(doorNo == carDoor.getOrElse(-1)) {
-         play.Logger.info("won = true ")
-         won = Some(true)
+       if(doorNo == carDoor) {
+         won = true
        }
-       gameOver = Some(true)
+       gameOver = true
    }
-
 
 }
 
@@ -59,17 +51,17 @@ object Game {
   val simple = {
     get[Pk[Long]]("game.id") ~
     get[String]("game.playerName") ~
-    get[Option[Int]]("game.initialPlayerDoor") ~
-    get[Option[Int]]("game.carDoor") ~
-    get[Option[Boolean]]("game.switched") ~
-    get[Option[Boolean]]("game.won") ~
-    get[Option[Boolean]]("game.gameOver") map {
+    get[Int]("game.initialPlayerDoor") ~
+    get[Int]("game.carDoor") ~
+    get[Boolean]("game.switched") ~
+    get[Boolean]("game.won") ~
+    get[Boolean]("game.gameOver") map {
       case id~playerName~initialPlayerDoor~carDoor~switched~won~gameOver => Game(id, playerName, initialPlayerDoor, carDoor, switched, won, gameOver)
     }
   }
 
   def findById(id: Long): Option[Game] = {
-    val game = DB.withConnection { implicit connection =>
+    DB.withConnection { implicit connection =>
       SQL(
       "select * from game where id = {id}"
       ).on(
@@ -78,9 +70,6 @@ object Game {
         Game.simple.singleOpt
       )
     }
-
-    play.Logger.info("find game.carDoor = '" + game.get.carDoor.toString + "'")
-    game
   }
 
   def insert(game: Game) = {

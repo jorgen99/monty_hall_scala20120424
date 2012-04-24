@@ -18,12 +18,9 @@ object Application extends Controller {
     mapping(
       "id" -> ignored(NotAssigned:Pk[Long]),
       "playerName" -> text
-    ) {
-     (id, playerName) => Game(playerName = playerName)
-    } {
-      game => Some(game.id, game.playerName)
-    }
-
+    )
+    { (id, playerName) => Game(playerName = playerName) }
+    { game => Some(game.id, game.playerName) }
   )
 
   def index = Action {
@@ -58,7 +55,7 @@ object Application extends Controller {
 
   def selectDoor(id: Long, doorNo: Int) = Action {
     Game.findById(id).map { game =>
-      game.initialPlayerDoor = Some(doorNo)
+      game.initialPlayerDoor = doorNo
       Game.update(id, game)
       Ok(toJson(Map("goatDoor" -> game.goatDoor)))
     }.getOrElse(NotFound)
@@ -68,24 +65,8 @@ object Application extends Controller {
     Game.findById(id).map { game =>
       game.stayOrSwitch(doorNo)
       Game.update(id, game)
-      Ok(toJson(Map("carDoor" -> game.carDoor.get.toString)))
+      Ok(toJson(Map("carDoor" -> game.carDoor.toString)))
     }.getOrElse(NotFound)
   }
-
-//    public static Result stayOrSwitch(Long id, int doorNo) {
-//        Game currentGame = Game.find.byId(id);
-//        currentGame.stayOrSwitch(doorNo);
-//        currentGame.save();
-//        ObjectNode result = Json.newObject();
-//        result.put("carDoor", currentGame.carDoor);
-//        result.put("won", currentGame.won);
-//        return ok(result);
-//    }
-//
-//    private static Result redirectToGame(Game newGame) {
-//        newGame.save();
-//        flash("success", "Game " + newGame.playerName + " has been created");
-//        return redirect(routes.Application.game(newGame.id));
-//    }
 
 }
